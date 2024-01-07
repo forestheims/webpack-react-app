@@ -1,30 +1,35 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-
-const Home = () => <h2>Home Page</h2>;
-const About = () => <h2>About Page</h2>;
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import BarChart from './components/Data/d3example';
+import { Provider } from 'react-redux';
+import store from './store';
+import TodosComponent from './components/Todos/TodosComponent.jsx';
+import UserProfile from './components/User/UserProfile.jsx';
+import Home from './components/Home/Home.jsx';
+import About from './components/About/About.jsx';
+import Layout from './components/Layout/Layout.jsx';
+// eslint-disable-next-line no-unused-vars
+import reset from './reset.css';
+// eslint-disable-next-line no-unused-vars
+import global from './global.css';
 
 const App = () => {
   return (
-    <Router>
-      <div>
-        <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/about">About</Link>
-            </li>
-          </ul>
-        </nav>
-
-        <Routes>
-          <Route path="/about" element={<About />} />
-          <Route path="/" element={<Home />} />
-        </Routes>
-      </div>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <div>
+          <Layout>
+            <Routes>
+              <Route path="/todos" element={<TodosComponent />} />
+              <Route path="/user" element={<UserProfile />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/barchart" element={<BarChart />} />
+              <Route path="/" element={<Home />} />
+            </Routes>
+          </Layout>
+        </div>
+      </Router>
+    </Provider>
   );
 };
 
