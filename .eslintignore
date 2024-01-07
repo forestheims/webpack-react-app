@@ -1,0 +1,20 @@
+# Dependency directories
+node_modules/
+
+# Build output directories
+dist/
+build/
+out/
+.next/
+
+# Logs
+logs
+*.log
+
+# IDE / Editor directories
+.vscode/
+
+# dotenv environment variable files
+.env
+.env.test
+.env.example
