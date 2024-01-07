@@ -4,6 +4,8 @@ import App from '../App';
 
 test('renders learn react link', () => {
   render(<App></App>);
-  const loginButtonElement = screen.getByRole('button', { name: /Login/i });
+  const loginButtonElement = screen.getByRole('button', {
+    name: /Log in with email/i,
+  });
   expect(loginButtonElement).toBeInTheDocument();
 });
