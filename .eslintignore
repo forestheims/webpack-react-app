@@ -18,3 +18,5 @@ logs
 .env
 .env.test
 .env.example
+
+package-lock.json
