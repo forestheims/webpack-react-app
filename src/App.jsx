@@ -8,10 +8,8 @@ import UserProfile from './components/User/UserProfile.jsx';
 import Home from './components/Home/Home.jsx';
 import About from './components/About/About.jsx';
 import Layout from './components/Layout/Layout.jsx';
-// eslint-disable-next-line no-unused-vars
-import reset from './reset.css';
-// eslint-disable-next-line no-unused-vars
-import global from './global.css';
+import './reset.css';
+import './global.css';
 
 const App = () => {
   return (
