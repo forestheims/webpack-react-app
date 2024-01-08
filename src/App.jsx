@@ -8,7 +8,7 @@ import Home from './components/Home/Home.jsx';
 import About from './components/About/About.jsx';
 import Layout from './components/Layout/Layout.jsx';
 import './reset.css';
-import './global.css';
+import './tailwind.css';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import Profile from './components/Profile/Profile.jsx';
 import SignUp from './components/SignUp/SignUp.jsx';

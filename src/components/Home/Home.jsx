@@ -23,10 +23,17 @@ const Home = () => {
       ) : (
         <>
           <h1>Log In</h1>
-          <button onClick={handleLogin}>Log in with email</button>
+          <button
+            className="bg-gray-900 hover:bg-gray-600 rounded text-white py-2 px-4 font-bold"
+            onClick={handleLogin}
+          >
+            Log in with email
+          </button>
           <p>
             No account yet?&nbsp;
-            <Link to="/signup">Sign up</Link>
+            <Link className="hover:underline font-bold" to="/signup">
+              Sign up
+            </Link>
           </p>
         </>
       )}

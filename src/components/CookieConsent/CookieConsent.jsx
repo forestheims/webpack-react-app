@@ -18,16 +18,32 @@ const CookieConsent = () => {
   };
 
   return cookiesAccepted || cookiesRejected ? (
-    <div>
-      <Link to="/cookies">Cookie Settings</Link>
+    <div className="flex gap-1 items-center h-8">
+      <Link className="hover:underline font-bold" to="/cookies">
+        Cookie Settings
+      </Link>
     </div>
   ) : (
-    <div>
+    <div className="flex gap-1 items-center h-8">
       <p>This website uses cookies.</p>
-      <button onClick={handleAccept}>Accept</button>
-      <button onClick={handleDecline}>Decline</button>
+      <div>
+        <button
+          className="bg-gray-900 hover:bg-gray-600 rounded text-white py-2 px-4 font-bold mx-3"
+          onClick={handleAccept}
+        >
+          Accept
+        </button>
+        <button
+          className="bg-gray-900 hover:bg-gray-600 rounded text-white py-2 px-4 font-bold mx-3"
+          onClick={handleDecline}
+        >
+          Decline
+        </button>
+      </div>
       <p>
-        <Link to="/cookies">More Info</Link>
+        <Link className="hover:underline font-bold" to="/cookies">
+          More Info
+        </Link>
       </p>
     </div>
   );

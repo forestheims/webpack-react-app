@@ -9,9 +9,16 @@ const CookiePolicy = () => {
   return (
     <div>
       {user ? (
-        <Link to={`/user/${user.username}`}>Home</Link>
+        <Link
+          className="hover:underline font-bold"
+          to={`/user/${user.username}`}
+        >
+          Home
+        </Link>
       ) : (
-        <Link to="/">Home</Link>
+        <Link className="hover:underline font-bold" to="/">
+          Home
+        </Link>
       )}
       <h1>Cookie Policy for This Website</h1>
 

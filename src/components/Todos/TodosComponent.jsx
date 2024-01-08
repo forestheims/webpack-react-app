@@ -33,7 +33,12 @@ const TodosComponent = () => {
         onChange={(e) => setNewTodo(e.target.value)}
         placeholder="Add a new todo"
       />
-      <button onClick={handleAddTodo}>Add Todo</button>
+      <button
+        className="bg-gray-900 hover:bg-gray-600 rounded text-white py-2 px-4 font-bold"
+        onClick={handleAddTodo}
+      >
+        Add Todo
+      </button>
 
       <ul>
         {todos.map((todo) => (

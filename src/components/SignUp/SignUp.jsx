@@ -33,11 +33,18 @@ const SignUp = () => {
               Password:
               <input type="text" name="password" />
             </label>
-            <button onClick={handleSignUp}>Sign Up</button>
+            <button
+              className="bg-gray-900 hover:bg-gray-600 rounded text-white py-2 px-4 font-bold"
+              onClick={handleSignUp}
+            >
+              Sign Up
+            </button>
           </form>
           <p>
             Already have an account?&nbsp;
-            <Link to="/">Sign in</Link>
+            <Link className="hover:underline font-bold" to="/">
+              Sign in
+            </Link>
           </p>
         </>
       )}
