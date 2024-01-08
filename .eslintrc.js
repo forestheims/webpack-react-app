@@ -11,6 +11,8 @@ module.exports = {
     'jest/globals': true,
   },
   extends: [
+    'react-app',
+    // 'react-app/jest',
     'eslint:recommended',
     'plugin:react/recommended',
     'prettier',

@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../slices/userSlice.js';
+import CookieConsent from '../CookieConsent/CookieConsent.jsx';
+import './Layout.css';
 
 const Layout = ({ children }) => {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
@@ -30,13 +32,15 @@ const Layout = ({ children }) => {
               <li>
                 <Link to="/barchart">Data</Link>
               </li>
-              <button onClick={handleLogout}>Log out</button>
             </ul>
           </nav>
+          <button onClick={handleLogout}>Log out</button>
         </header>
       )}
       <main>{children}</main>
-      <footer></footer>
+      <footer>
+        <CookieConsent />
+      </footer>
     </>
   );
 };

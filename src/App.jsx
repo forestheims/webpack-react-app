@@ -12,6 +12,7 @@ import './global.css';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import Profile from './components/Profile/Profile.jsx';
 import SignUp from './components/SignUp/SignUp.jsx';
+import CookiePolicy from './components/CookieConsent/CookiePolicy.jsx';
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
               <Route path="/barchart" element={<BarChart />} />
             </Route>
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/cookies" element={<CookiePolicy />} />
             <Route path="/" element={<Home />} />
           </Routes>
         </Layout>

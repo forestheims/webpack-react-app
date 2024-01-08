@@ -33,7 +33,7 @@ const BarChart = () => {
   return (
     <>
       <h2>Data</h2>
-      <div ref={d3Chart}></div>;
+      <div ref={d3Chart}></div>
     </>
   );
 };

@@ -14,7 +14,7 @@ const SignUp = () => {
       username: 'watsonaname',
       password: 'lolol',
     };
-    dispatch(login(userData));
+    dispatch(login(userData)); // update this later
   };
 
   return (
