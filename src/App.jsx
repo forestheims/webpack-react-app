@@ -15,6 +15,7 @@ import SignUp from './components/SignUp/SignUp.jsx';
 import CookiePolicy from './components/CookieConsent/CookiePolicy.jsx';
 import PrivacyPolicy from './components/Privacy/PrivacyPolicy.jsx';
 import TermsOfService from './components/Terms/TermsOfService.jsx';
+import User from './components/User/User.jsx';
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
           <Routes>
             <Route element={<ProtectedRoute />}>
               <Route path="/user/:username" element={<Profile />} />
+              <Route path="/user" element={<User />} />
               <Route path="/todos" element={<TodosComponent />} />
               <Route path="/about" element={<About />} />
               <Route path="/barchart" element={<BarChart />} />
