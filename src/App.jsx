@@ -13,6 +13,8 @@ import ProtectedRoute from './components/ProtectedRoute.jsx';
 import Profile from './components/Profile/Profile.jsx';
 import SignUp from './components/SignUp/SignUp.jsx';
 import CookiePolicy from './components/CookieConsent/CookiePolicy.jsx';
+import PrivacyPolicy from './components/Privacy/PrivacyPolicy.jsx';
+import TermsOfService from './components/Terms/TermsOfService.jsx';
 
 const App = () => {
   return (
@@ -27,6 +29,8 @@ const App = () => {
               <Route path="/barchart" element={<BarChart />} />
             </Route>
             <Route path="/signup" element={<SignUp />} />
+            <Route path="/termsofservice" element={<TermsOfService />} />
+            <Route path="/privacypolicy" element={<PrivacyPolicy />} />
             <Route path="/cookies" element={<CookiePolicy />} />
             <Route path="/" element={<Home />} />
           </Routes>
