@@ -24,7 +24,7 @@ const CookieConsent = () => {
       </Link>
     </div>
   ) : (
-    <div className="flex gap-1 items-center h-8">
+    <div className="flex gap-1 items-center h-8 rounded bg-gray-900 bg-opacity-30 py-8 px-4 fixed bottom-6 right-6 text-white">
       <p>This website uses cookies.</p>
       <div>
         <button

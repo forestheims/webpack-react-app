@@ -25,6 +25,11 @@ const Layout = ({ children }) => {
                 </Link>
               </li>
               <li>
+                <Link className="hover:underline" to="/user">
+                  User
+                </Link>
+              </li>
+              <li>
                 <Link className="hover:underline" to="/about">
                   About
                 </Link>
@@ -52,8 +57,24 @@ const Layout = ({ children }) => {
       <main className="flex flex-col flex-grow items-center justify-center gap-8">
         {children}
       </main>
-      <footer>
-        <CookieConsent />
+      <footer className="m-bottom-6">
+        <nav className="">
+          <ul className="flex row px-4 gap-4 items-center justify-center">
+            <li>
+              <Link className="hover:underline" to="/privacypolicy">
+                Privacy Policy
+              </Link>
+            </li>
+            <li>
+              <Link className="hover:underline" to="/termsofservice">
+                Terms of Service
+              </Link>
+            </li>
+            <li>
+              <CookieConsent />
+            </li>
+          </ul>
+        </nav>
       </footer>
     </div>
   );
