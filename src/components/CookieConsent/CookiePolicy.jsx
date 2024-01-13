@@ -1,27 +1,66 @@
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { acceptCookies, revokeCookies } from '../../slices/cookieSlice';
 
 const CookiePolicy = () => {
-  const user = useSelector((state) => state.user.user);
-  console.log(user);
+  const [resetCookies, setResetCookies] = useState(false);
+
+  const { cookiesAccepted, cookiesRejected } = useSelector(
+    (state) => state.cookie
+  );
+
+  useEffect(() => {
+    setResetCookies(cookiesAccepted);
+  }, []);
+
+  const dispatch = useDispatch();
+
+  const handleAccept = () => {
+    setResetCookies(true);
+    dispatch(acceptCookies());
+  };
+
+  const handleDecline = () => {
+    setResetCookies(true);
+    dispatch(revokeCookies());
+  };
 
   return (
     <>
       <nav className="flex row px-4 gap-4 font-bold">
-        {user ? (
-          <Link
-            className="hover:underline font-bold"
-            to={`/user/${user.username}`}
-          >
-            Home
-          </Link>
-        ) : (
-          <Link className="hover:underline font-bold" to="/">
-            Home
-          </Link>
-        )}
+        <Link className="hover:underline font-bold" to="/">
+          Home
+        </Link>
       </nav>
+      {resetCookies ? (
+        <div className="flex gap-1 items-center h-8">
+          <button
+            className="hover:underline font-bold rounded bg-gray-600 bg-opacity-50 px-2 py-1"
+            onClick={() => setResetCookies(!resetCookies)}
+          >
+            Change Cookie Settings
+          </button>
+        </div>
+      ) : (
+        <div className="flex gap-4 items-center h-19 rounded bg-gray-900 bg-opacity-30 py-4 px-4 text-white">
+          <p>This website uses cookies.</p>
+          <div>
+            <button
+              className="bg-gray-900 hover:bg-gray-600 rounded text-white py-2 px-4 font-bold mx-3"
+              onClick={handleAccept}
+            >
+              Accept
+            </button>
+            <button
+              className="bg-gray-900 hover:bg-gray-600 rounded text-white py-2 px-4 font-bold mx-3"
+              onClick={handleDecline}
+            >
+              Decline
+            </button>
+          </div>
+        </div>
+      )}
       <div className="flex flex-col text-left gap-2 m-4 w-7/12">
         <h1 className="font-bold">Cookie Policy for This Website</h1>
 

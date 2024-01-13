@@ -1,5 +1,5 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../slices/userSlice.js';
@@ -7,11 +7,17 @@ import CookieConsent from '../CookieConsent/CookieConsent.jsx';
 
 const Layout = ({ children }) => {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
+  const { pathname } = useLocation();
+
   const dispatch = useDispatch();
 
   const handleLogout = () => {
     dispatch(logout());
   };
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <div className="min-h-screen p-4 text-center bg-lime-300 text-neutral-900 circular-gradient flex flex-col">

@@ -16,6 +16,7 @@ import CookiePolicy from './components/CookieConsent/CookiePolicy.jsx';
 import PrivacyPolicy from './components/Privacy/PrivacyPolicy.jsx';
 import TermsOfService from './components/Terms/TermsOfService.jsx';
 import User from './components/User/User.jsx';
+import NotFound from './components/NotFound/NotFound.jsx';
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
       <Router>
         <Layout>
           <Routes>
+            <Route path="*" element={<NotFound />} />
             <Route element={<ProtectedRoute />}>
               <Route path="/user/:username" element={<Profile />} />
               <Route path="/user" element={<User />} />
