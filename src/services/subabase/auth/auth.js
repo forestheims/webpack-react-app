@@ -1,16 +1,24 @@
 import supabase from '../client';
 
-const signIn = async (email, password) => {
+const signUp = async (email, password) => {
   const { data, error } = await supabase.auth.signUp({
-    email: 'example@email.com',
-    password: 'example-password',
+    email: email,
+    password: password,
+  });
+  return { data, error };
+};
+
+const logIn = async (email, password) => {
+  const { data, error } = await supabase.auth.signUp({
+    email: email,
+    password: password,
   });
   return { data, error };
 };
 
 const signInWithOAuth = async () => {
   const { data, error } = await supabase.auth.signInWithOAuth({
-    provider: 'github',
+    provider: 'google',
     options: {
       redirectTo: 'https://cosmicaxe.netlify.app/user',
     },
@@ -23,4 +31,4 @@ const signOut = async () => {
   return { error };
 };
 
-export { signIn, signInWithOAuth, signOut };
+export { signUp, logIn, signInWithOAuth, signOut };

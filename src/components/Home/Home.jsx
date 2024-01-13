@@ -9,7 +9,7 @@ const Home = () => {
   return (
     <>
       {user ? (
-        <Navigate to={`/user/${user.username}`} replace />
+        <Navigate to={`/user`} replace />
       ) : (
         <>
           <h1>Log In</h1>

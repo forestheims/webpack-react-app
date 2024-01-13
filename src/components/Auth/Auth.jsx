@@ -36,12 +36,12 @@ const Auth = () => {
             className="flex flex-col gap-4 align-start rounded px-4 py-6 bg-white bg-opacity-20"
           >
             <div className="flex gap-2">
-              <label htmlFor="username">Username:</label>
-              <input type="text" name="username" />
+              <label htmlFor="email">Email:</label>
+              <input type="email" name="email" />
             </div>
             <div className="flex justify-between gap-2">
               <label htmlFor="password">Password:</label>
-              <input type="text" name="password" />
+              <input type="password" name="password" />
             </div>
             <button
               className="bg-gray-900 hover:bg-gray-600 rounded text-white py-2 px-4 font-bold"

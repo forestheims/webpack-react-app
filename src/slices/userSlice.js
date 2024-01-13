@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { logIn, signOut, signUp } from '../services/subabase/auth/auth';
 
 const initialState = {
   user: null, // The user object (null when not logged in)
@@ -13,20 +14,28 @@ export const userSlice = createSlice({
   reducers: {
     // Action to sign the user up
     signup: (state, action) => {
-      state.user = action.payload;
+      const userData = action.payload;
+      const { data, error } = signUp(userData);
+      console.log('data:', data, '\n', 'error:', error);
+      state.user = userData;
       state.isAuthenticated = true;
       state.isLoading = false;
       state.error = null;
     },
     // Action to log the user in
     login: (state, action) => {
-      state.user = action.payload;
+      const userData = action.payload;
+      const { data, error } = logIn(userData);
+      console.log('data:', data, '\n', 'error:', error);
+      state.user = userData;
       state.isAuthenticated = true;
       state.isLoading = false;
       state.error = null;
     },
     // Action to log the user out
     logout: (state) => {
+      const { error } = signOut();
+      console.log('error:', error);
       state.user = null;
       state.isAuthenticated = false;
       state.isLoading = false;
