@@ -1,9 +1,12 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { login } from '../../slices/userSlice.js';
-import { Link, Navigate } from 'react-router-dom';
+import { Link, Navigate, useLocation } from 'react-router-dom';
 
-const SignUp = () => {
+const Auth = () => {
+  const location = useLocation();
+  console.log(location);
+
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
 
@@ -20,7 +23,7 @@ const SignUp = () => {
   return (
     <>
       {user ? (
-        <Navigate to={`/user/${user.username}`} replace />
+        <Navigate to={`/user`} replace />
       ) : (
         <>
           <h1>Sign Up</h1>
@@ -52,4 +55,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Auth;

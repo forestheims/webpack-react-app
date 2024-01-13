@@ -11,7 +11,7 @@ import './reset.css';
 import './tailwind.css';
 import ProtectedRoute from './components/ProtectedRoute.jsx';
 import Profile from './components/Profile/Profile.jsx';
-import SignUp from './components/SignUp/SignUp.jsx';
+import Auth from './components/Auth/Auth.jsx';
 import CookiePolicy from './components/CookieConsent/CookiePolicy.jsx';
 import PrivacyPolicy from './components/Privacy/PrivacyPolicy.jsx';
 import TermsOfService from './components/Terms/TermsOfService.jsx';
@@ -32,7 +32,8 @@ const App = () => {
               <Route path="/about" element={<About />} />
               <Route path="/barchart" element={<BarChart />} />
             </Route>
-            <Route path="/signup" element={<SignUp />} />
+            <Route path="/login" element={<Auth />} />
+            <Route path="/signup" element={<Auth />} />
             <Route path="/termsofservice" element={<TermsOfService />} />
             <Route path="/privacypolicy" element={<PrivacyPolicy />} />
             <Route path="/cookies" element={<CookiePolicy />} />

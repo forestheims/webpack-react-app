@@ -6,9 +6,7 @@ import { acceptCookies, revokeCookies } from '../../slices/cookieSlice';
 const CookiePolicy = () => {
   const [resetCookies, setResetCookies] = useState(false);
 
-  const { cookiesAccepted, cookiesRejected } = useSelector(
-    (state) => state.cookie
-  );
+  const { cookiesAccepted } = useSelector((state) => state.cookie);
 
   useEffect(() => {
     setResetCookies(cookiesAccepted);
