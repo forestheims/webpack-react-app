@@ -15,7 +15,8 @@ export const userSlice = createSlice({
     // Action to sign the user up
     signup: (state, action) => {
       const userData = action.payload;
-      const { data, error } = signUp(userData);
+      const { email, password } = userData;
+      const { data, error } = signUp(email, password);
       console.log('data:', data, '\n', 'error:', error);
       state.user = userData;
       state.isAuthenticated = true;
@@ -25,7 +26,8 @@ export const userSlice = createSlice({
     // Action to log the user in
     login: (state, action) => {
       const userData = action.payload;
-      const { data, error } = logIn(userData);
+      const { email, password } = userData;
+      const { data, error } = logIn(email, password);
       console.log('data:', data, '\n', 'error:', error);
       state.user = userData;
       state.isAuthenticated = true;
