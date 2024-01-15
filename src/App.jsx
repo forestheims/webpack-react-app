@@ -2,7 +2,8 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import BarChart from './components/Data/d3example';
 import { Provider } from 'react-redux';
-import store from './store';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './store';
 import TodosComponent from './components/Todos/TodosComponent.jsx';
 import Home from './components/Home/Home.jsx';
 import About from './components/About/About.jsx';
@@ -21,26 +22,28 @@ import NotFound from './components/NotFound/NotFound.jsx';
 const App = () => {
   return (
     <Provider store={store}>
-      <Router>
-        <Layout>
-          <Routes>
-            <Route path="*" element={<NotFound />} />
-            <Route element={<ProtectedRoute />}>
-              <Route path="/user/:username" element={<Profile />} />
-              <Route path="/user" element={<User />} />
-              <Route path="/todos" element={<TodosComponent />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/barchart" element={<BarChart />} />
-            </Route>
-            <Route path="/login" element={<Auth />} />
-            <Route path="/signup" element={<Auth />} />
-            <Route path="/termsofservice" element={<TermsOfService />} />
-            <Route path="/privacypolicy" element={<PrivacyPolicy />} />
-            <Route path="/cookies" element={<CookiePolicy />} />
-            <Route path="/" element={<Home />} />
-          </Routes>
-        </Layout>
-      </Router>
+      <PersistGate loading={null} persistor={persistor}>
+        <Router>
+          <Layout>
+            <Routes>
+              <Route path="*" element={<NotFound />} />
+              <Route element={<ProtectedRoute />}>
+                <Route path="/user/:username" element={<Profile />} />
+                <Route path="/user" element={<User />} />
+                <Route path="/todos" element={<TodosComponent />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/barchart" element={<BarChart />} />
+              </Route>
+              <Route path="/login" element={<Auth />} />
+              <Route path="/signup" element={<Auth />} />
+              <Route path="/termsofservice" element={<TermsOfService />} />
+              <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+              <Route path="/cookies" element={<CookiePolicy />} />
+              <Route path="/" element={<Home />} />
+            </Routes>
+          </Layout>
+        </Router>
+      </PersistGate>
     </Provider>
   );
 };
