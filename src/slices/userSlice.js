@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { logIn, signOut, signUp } from '../services/subabase/auth/auth';
+import { persistor } from '../store';
+
+const EXPIRY_DURATION = 86400000; // 24 hours in milliseconds
 
 const initialState = {
   user: null, // The user object (null when not logged in)
@@ -14,34 +17,25 @@ export const userSlice = createSlice({
   reducers: {
     // Action to sign the user up
     signup: (state, action) => {
-      const userData = action.payload;
-      const { email, password } = userData;
-      const { data, error } = signUp(email, password);
-      console.log('data:', data, '\n', 'error:', error);
-      state.user = userData;
-      state.isAuthenticated = true;
+      state.isAuthenticated = false;
       state.isLoading = false;
       state.error = null;
     },
     // Action to log the user in
     login: (state, action) => {
-      const userData = action.payload;
-      const { email, password } = userData;
-      const { data, error } = logIn(email, password);
-      console.log('data:', data, '\n', 'error:', error);
-      state.user = userData;
+      state.expiry = Date.now() + EXPIRY_DURATION; // Set expiry timestamp
+      state.user = action.payload;
       state.isAuthenticated = true;
       state.isLoading = false;
       state.error = null;
     },
     // Action to log the user out
     logout: (state) => {
-      const { error } = signOut();
-      console.log('error:', error);
       state.user = null;
       state.isAuthenticated = false;
       state.isLoading = false;
       state.error = null;
+      state.expiry = null;
     },
     // Action to start loading the user data
     startLoading: (state) => {
@@ -55,6 +49,7 @@ export const userSlice = createSlice({
   },
 });
 
-export const { login, logout, startLoading, setError } = userSlice.actions;
+export const { signup, login, logout, startLoading, setError } =
+  userSlice.actions;
 
 export default userSlice.reducer;

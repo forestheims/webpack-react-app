@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { login, signup } from '../../slices/userSlice.js';
-import { Link, Navigate, useLocation } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import {
   validateEmail,
   validatePassword,
@@ -9,12 +9,13 @@ import {
 
 const Auth = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const loginPage = location.pathname === '/login';
 
   const [emailValidMessage, setEmailValidMessage] = useState('');
   const [emailPasswordMessage, setPasswordValidMessage] = useState([]);
 
-  const user = useSelector((state) => state.user.user);
+  const { redirectTo, user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const handleSignUp = (event) => {
@@ -33,13 +34,28 @@ const Auth = () => {
       setPasswordValidMessage(validPassword[1]);
     }
     if (loginPage & validEmail & validPassword[0]) {
+      // const { email, password } = userData;
+      // const { data, error } = logIn(email, password); // supabase call
+      // console.log('data:', data, '\n', 'error:', error);
       console.log('Log User In');
-      // dispatch(login(userData));
+      dispatch(login(userData));
     } else if (validEmail & validPassword[0]) {
+      console.log(email, password);
+      // const { data, error } = signUp(email, password); // supabase call
+      // console.log('data:', data, '\n', 'error:', error);
+      // state.redirectTo = '/login';
+      // state.successMessage =
+      //   'Account creation successful! Check email to confirm your sign up.';
       console.log('Sign User Up');
-      // dispatch(signup(userData));
+      dispatch(signup(userData));
     }
   };
+
+  useEffect(() => {
+    if (redirectTo === 'login') {
+      navigate('/login');
+    }
+  }, [redirectTo, navigate]);
 
   return (
     <>
@@ -48,6 +64,11 @@ const Auth = () => {
       ) : (
         <>
           <h1>{loginPage ? 'Log In' : 'Sign Up'}</h1>
+          {user?.successMessage && (
+            <p className="text-green-600 text-sm text-left w-1/2 justify-self-center">
+              {user.successMessage}
+            </p>
+          )}
           <form
             onSubmit={handleSignUp}
             className="flex flex-col gap-4 align-start rounded px-4 py-6 bg-white bg-opacity-20"

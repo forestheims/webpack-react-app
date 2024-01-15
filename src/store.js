@@ -7,6 +7,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 import { combineReducers } from 'redux'; // defaults to localStorage for web
+import expiryMiddleware from './middleware/dataExpiration.js';
 
 const persistConfig = {
   key: 'root', // Key to use in storage
@@ -26,7 +27,12 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store = configureStore({
   reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: ['persist/PERSIST'], // Ignore non-serializable check for this action
+      },
+    }).concat(expiryMiddleware),
   devTools: process.env.NODE_ENV !== 'production', // Enable Redux DevTools in non-production environments
 });
 

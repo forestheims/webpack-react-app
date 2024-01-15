@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { logout } from '../../slices/userSlice.js';
 import CookieConsent from '../CookieConsent/CookieConsent.jsx';
+import { persistor } from '../../store.js';
 
 const Layout = ({ children }) => {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
@@ -12,7 +13,10 @@ const Layout = ({ children }) => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
+    // const { error } = signOut(); // supabase call
+    // console.log('error:', error);
     dispatch(logout());
+    persistor.purge(); // Clears the persisted Redux state
   };
 
   useEffect(() => {

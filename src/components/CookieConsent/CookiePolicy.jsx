@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { acceptCookies, revokeCookies } from '../../slices/cookieSlice';
 
@@ -26,11 +25,6 @@ const CookiePolicy = () => {
 
   return (
     <>
-      <nav className="flex row px-4 gap-4 font-bold">
-        <Link className="hover:underline font-bold" to="/">
-          Home
-        </Link>
-      </nav>
       {resetCookies ? (
         <div className="flex gap-1 items-center h-8">
           <button
