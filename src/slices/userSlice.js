@@ -19,6 +19,7 @@ export const userSlice = createSlice({
       state.isAuthenticated = false;
       state.isLoading = false;
       state.error = null;
+      state.success = true;
     },
     // Action for failure to sign the user up
     signupFailure: (state, action) => {
@@ -28,6 +29,14 @@ export const userSlice = createSlice({
     },
     // Action to log the user in
     loginSuccess: (state, action) => {
+      state.expiry = Date.now() + EXPIRY_DURATION; // Set expiry timestamp
+      state.user = action.payload;
+      state.isAuthenticated = true;
+      state.isLoading = false;
+      state.error = null;
+    },
+    // Action to log the user in from authenticated session
+    setUser: (state, action) => {
       state.expiry = Date.now() + EXPIRY_DURATION; // Set expiry timestamp
       state.user = action.payload;
       state.isAuthenticated = true;
@@ -78,6 +87,7 @@ export const {
   startLoading,
   setError,
   logoutFailure,
+  setUser,
 } = userSlice.actions;
 
 export default userSlice.reducer;

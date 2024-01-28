@@ -21,6 +21,7 @@ const Layout = ({ children }) => {
       persistor.purge(); // Clears the persisted Redux state
     } catch (error) {
       dispatch(logoutFailure(error.message));
+      persistor.purge();
     }
   };
 

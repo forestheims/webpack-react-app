@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import BarChart from './components/Data/d3example';
-import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from './store';
+import { persistor } from './store';
 import TodosComponent from './components/Todos/TodosComponent.jsx';
 import Home from './components/Home/Home.jsx';
 import About from './components/About/About.jsx';
@@ -18,33 +17,40 @@ import PrivacyPolicy from './components/Privacy/PrivacyPolicy.jsx';
 import TermsOfService from './components/Terms/TermsOfService.jsx';
 import User from './components/User/User.jsx';
 import NotFound from './components/NotFound/NotFound.jsx';
+import { useDispatch } from 'react-redux';
+import { initializeApp } from './utils/initializeApp.js';
 
 const App = () => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    // Dispatch the initializeApp Thunk when the App component mounts
+    dispatch(initializeApp());
+  }, [dispatch]); // Empty dependency array ensures this effect runs only once on mount
+
   return (
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <Router>
-          <Layout>
-            <Routes>
-              <Route path="*" element={<NotFound />} />
-              <Route element={<ProtectedRoute />}>
-                <Route path="/user/:username" element={<Profile />} />
-                <Route path="/user" element={<User />} />
-                <Route path="/todos" element={<TodosComponent />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/barchart" element={<BarChart />} />
-              </Route>
-              <Route path="/login" element={<Auth />} />
-              <Route path="/signup" element={<Auth />} />
-              <Route path="/termsofservice" element={<TermsOfService />} />
-              <Route path="/privacypolicy" element={<PrivacyPolicy />} />
-              <Route path="/cookies" element={<CookiePolicy />} />
-              <Route path="/" element={<Home />} />
-            </Routes>
-          </Layout>
-        </Router>
-      </PersistGate>
-    </Provider>
+    <PersistGate loading={null} persistor={persistor}>
+      <Router>
+        <Layout>
+          <Routes>
+            <Route path="*" element={<NotFound />} />
+            <Route element={<ProtectedRoute />}>
+              <Route path="/user/:username" element={<Profile />} />
+              <Route path="/user" element={<User />} />
+              <Route path="/todos" element={<TodosComponent />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/barchart" element={<BarChart />} />
+            </Route>
+            <Route path="/login" element={<Auth />} />
+            <Route path="/signup" element={<Auth />} />
+            <Route path="/termsofservice" element={<TermsOfService />} />
+            <Route path="/privacypolicy" element={<PrivacyPolicy />} />
+            <Route path="/cookies" element={<CookiePolicy />} />
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </Layout>
+      </Router>
+    </PersistGate>
   );
 };
 
