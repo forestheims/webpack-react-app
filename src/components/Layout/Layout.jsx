@@ -2,9 +2,10 @@ import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { logout } from '../../slices/userSlice.js';
+import { logout, logoutFailure } from '../../slices/userSlice.js';
 import CookieConsent from '../CookieConsent/CookieConsent.jsx';
 import { persistor } from '../../store.js';
+import { signOut } from '../../services/subabase/auth/auth.js';
 
 const Layout = ({ children }) => {
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
@@ -13,10 +14,14 @@ const Layout = ({ children }) => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
-    // const { error } = signOut(); // supabase call
-    // console.log('error:', error);
-    dispatch(logout());
-    persistor.purge(); // Clears the persisted Redux state
+    try {
+      const { error } = signOut(); // supabase call
+      if (error) throw error;
+      dispatch(logout());
+      persistor.purge(); // Clears the persisted Redux state
+    } catch (error) {
+      dispatch(logoutFailure(error.message));
+    }
   };
 
   useEffect(() => {

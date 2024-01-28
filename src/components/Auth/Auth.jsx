@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { login, signup } from '../../slices/userSlice.js';
+import {
+  loginSuccess,
+  loginFailure,
+  signupSuccess,
+  signupFailure,
+  startLoading,
+} from '../../slices/userSlice.js';
+import { logIn, signUp } from '../../services/subabase/auth/auth.js';
 import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import {
   validateEmail,
@@ -15,18 +22,18 @@ const Auth = () => {
   const [emailValidMessage, setEmailValidMessage] = useState('');
   const [emailPasswordMessage, setPasswordValidMessage] = useState([]);
 
-  const { redirectTo, user } = useSelector((state) => state.user);
+  const { success, user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const handleSignUp = (event) => {
     event.preventDefault();
-
     const form = event.target;
     const formData = new FormData(form);
     const userData = Object.fromEntries(formData.entries());
     const { email, password } = userData;
     const validEmail = validateEmail(email);
     const validPassword = validatePassword(password);
+
     if (!validEmail) {
       setEmailValidMessage('A valid email address is required');
     }
@@ -34,28 +41,34 @@ const Auth = () => {
       setPasswordValidMessage(validPassword[1]);
     }
     if (loginPage & validEmail & validPassword[0]) {
-      // const { email, password } = userData;
-      // const { data, error } = logIn(email, password); // supabase call
-      // console.log('data:', data, '\n', 'error:', error);
-      console.log('Log User In');
-      dispatch(login(userData));
+      try {
+        dispatch(startLoading());
+        const { email, password } = userData;
+        const { data, error } = logIn(email, password); // supabase cal
+        if (error) throw error;
+        console.log('Log User In');
+        dispatch(loginSuccess(data.user));
+      } catch (error) {
+        dispatch(loginFailure(userData));
+      }
     } else if (validEmail & validPassword[0]) {
-      console.log(email, password);
-      // const { data, error } = signUp(email, password); // supabase call
-      // console.log('data:', data, '\n', 'error:', error);
-      // state.redirectTo = '/login';
-      // state.successMessage =
-      //   'Account creation successful! Check email to confirm your sign up.';
-      console.log('Sign User Up');
-      dispatch(signup(userData));
+      try {
+        dispatch(startLoading());
+        const { data, error } = signUp(email, password); // supabase call
+        if (error) throw error;
+        console.log('Sign User Up');
+        dispatch(signupSuccess(data.user));
+      } catch (error) {
+        dispatch(signupFailure(error.message));
+      }
     }
   };
 
   useEffect(() => {
-    if (redirectTo === 'login') {
+    if (success) {
       navigate('/login');
     }
-  }, [redirectTo, navigate]);
+  }, [success, navigate]);
 
   return (
     <>
