@@ -18,14 +18,14 @@ const Layout = ({ children }) => {
       if (!session) {
         persistor.purge();
         navigate('/login');
-      }
-      const user = session.data.session.user;
-      if (!user) {
-        persistor.purge();
-        navigate('/login');
-      }
-      if (session && user) {
-        dispatch(setUser(user));
+      } else {
+        const user = session.data.session.user;
+        if (!user) {
+          persistor.purge();
+          navigate('/login');
+        } else {
+          dispatch(setUser(user));
+        }
       }
     };
     initializeApp();
