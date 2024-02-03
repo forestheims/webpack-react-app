@@ -16,16 +16,17 @@ const Layout = ({ children }) => {
     const initializeApp = async () => {
       const session = await getSession();
       if (!session) {
-        persistor.purge();
+        // persistor.purge();
         navigate('/login');
-      } else {
-        const user = session.data.session.user;
-        if (!user) {
-          persistor.purge();
-          navigate('/login');
-        } else {
-          dispatch(setUser(user));
-        }
+      }
+      const user = session.user;
+      console.log(user);
+      if (!user) {
+        // persistor.purge();
+        navigate('/login');
+      }
+      if (session && user) {
+        dispatch(setUser(user));
       }
     };
     initializeApp();
@@ -85,6 +86,11 @@ const Layout = ({ children }) => {
                 <li>
                   <Link className="hover:underline" to="/barchart">
                     Data
+                  </Link>
+                </li>
+                <li>
+                  <Link className="hover:underline" to="/tone">
+                    PolyRhythms
                   </Link>
                 </li>
               </>

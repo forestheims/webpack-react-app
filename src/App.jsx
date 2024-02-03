@@ -17,6 +17,7 @@ import PrivacyPolicy from './components/Privacy/PrivacyPolicy.jsx';
 import TermsOfService from './components/Terms/TermsOfService.jsx';
 import User from './components/User/User.jsx';
 import NotFound from './components/NotFound/NotFound.jsx';
+import PolyRhythms from './components/Tone/PolyRythms.jsx';
 
 const App = () => {
   return (
@@ -31,6 +32,7 @@ const App = () => {
               <Route path="/todos" element={<TodosComponent />} />
               <Route path="/about" element={<About />} />
               <Route path="/barchart" element={<BarChart />} />
+              <Route path="/tone" element={<PolyRhythms />} />
             </Route>
             <Route path="/login" element={<Auth />} />
             <Route path="/signup" element={<Auth />} />
