@@ -30,7 +30,8 @@ const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: ['persist/PERSIST'], // Ignore non-serializable check for this action
+        ignoredActions: ['persist/PERSIST', 'persist/PURGE'],
+        // Ignore serializability check for specific actions
       },
     }).concat(expiryMiddleware),
   devTools: process.env.NODE_ENV !== 'production', // Enable Redux DevTools in non-production environments

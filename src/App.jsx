@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import BarChart from './components/Data/d3example';
 import { PersistGate } from 'redux-persist/integration/react';
@@ -17,17 +17,8 @@ import PrivacyPolicy from './components/Privacy/PrivacyPolicy.jsx';
 import TermsOfService from './components/Terms/TermsOfService.jsx';
 import User from './components/User/User.jsx';
 import NotFound from './components/NotFound/NotFound.jsx';
-import { useDispatch } from 'react-redux';
-import { initializeApp } from './utils/initializeApp.js';
 
 const App = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    // Dispatch the initializeApp Thunk when the App component mounts
-    dispatch(initializeApp());
-  }, [dispatch]); // Empty dependency array ensures this effect runs only once on mount
-
   return (
     <PersistGate loading={null} persistor={persistor}>
       <Router>

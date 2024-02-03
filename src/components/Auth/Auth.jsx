@@ -25,7 +25,7 @@ const Auth = () => {
   const { success, user } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
-  const handleSignUp = (event) => {
+  const handleSignUp = async (event) => {
     event.preventDefault();
     const form = event.target;
     const formData = new FormData(form);
@@ -44,9 +44,9 @@ const Auth = () => {
       try {
         dispatch(startLoading());
         const { email, password } = userData;
-        const { data, error } = logIn(email, password); // supabase cal
+        const { data, error } = await logIn(email, password); // supabase cal
         if (error) throw error;
-        console.log('Log User In');
+        console.log('log in', data);
         dispatch(loginSuccess(data.user));
       } catch (error) {
         dispatch(loginFailure(userData));
@@ -54,9 +54,9 @@ const Auth = () => {
     } else if (validEmail & validPassword[0]) {
       try {
         dispatch(startLoading());
-        const { data, error } = signUp(email, password); // supabase call
+        const { data, error } = await signUp(email, password); // supabase call
         if (error) throw error;
-        console.log('Sign User Up');
+        console.log('Sign User Up', data);
         dispatch(signupSuccess(data.user));
       } catch (error) {
         dispatch(signupFailure(error.message));

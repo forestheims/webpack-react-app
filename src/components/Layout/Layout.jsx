@@ -1,21 +1,43 @@
 import React, { useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { logout, logoutFailure } from '../../slices/userSlice.js';
+import { logout, logoutFailure, setUser } from '../../slices/userSlice.js';
 import CookieConsent from '../CookieConsent/CookieConsent.jsx';
 import { persistor } from '../../store.js';
 import { signOut } from '../../services/subabase/auth/auth.js';
+import { getSession } from '../../services/subabase/auth/session.js';
 
 const Layout = ({ children }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const initializeApp = async () => {
+      const session = await getSession();
+      console.log('user:', session.user, '\n', 'session:', session);
+      if (!session) {
+        persistor.purge();
+        navigate('/login');
+      }
+      const user = session.user;
+      if (!user) {
+        persistor.purge();
+        navigate('/login');
+      }
+      if (session && user) {
+        dispatch(setUser(user));
+      }
+    };
+    initializeApp();
+  }, []);
+
   const isAuthenticated = useSelector((state) => state.user.isAuthenticated);
   const { pathname } = useLocation();
 
-  const dispatch = useDispatch();
-
-  const handleLogout = () => {
+  const handleLogout = async () => {
     try {
-      const { error } = signOut(); // supabase call
+      const { error } = await signOut(); // supabase call
       if (error) throw error;
       dispatch(logout());
       persistor.purge(); // Clears the persisted Redux state
