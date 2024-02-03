@@ -15,12 +15,18 @@ const Layout = ({ children }) => {
   useEffect(() => {
     const initializeApp = async () => {
       const session = await getSession();
-      console.log('user:', session.user, '\n', 'session:', session);
+      console.log(
+        'user:',
+        session.data.session.user,
+        '\n',
+        'session:',
+        session
+      );
       if (!session) {
         persistor.purge();
         navigate('/login');
       }
-      const user = session.user;
+      const user = session.data.session.user;
       if (!user) {
         persistor.purge();
         navigate('/login');
